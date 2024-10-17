@@ -1,0 +1,125 @@
+.header {
+    display: flex;
+    height: 100px;
+    left: 0px;
+    top: 0px;
+    background-color: #cbdfc7;
+    padding: 0 30px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  .navbar {
+    height: 50px;
+  }
+  
+  .link {
+    text-align: center;
+  }
+  
+  .header_list {
+    display: flex;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .header_nav_welcome {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .button {
+    width: 158px;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    transition: all 500ms ease;
+    cursor: pointer;
+    background-color: beige;
+    text-transform: uppercase;
+  }
+  
+  .button:hover {
+    transition: 0.4s;
+    background-color: rgb(245, 245, 187);
+  }
+  
+  .lang_switcher {
+    text-align: center;
+  }
+  
+  #sticky {
+    position: fixed;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    animation: slideDown 0.35s ease-out;
+    height: 70px;
+    background-color: #cbdfc772;
+  }
+  
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  @media screen and (max-width: 900px) {
+    .button {
+      width: 100px;
+      height: 30px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-right: 0px;
+    }
+  
+    .header {
+      padding: 0 20px;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .wrapper {
+      padding: 0 10px;
+    }
+  
+    .button {
+      width: 70px;
+      height: 25px;
+      font-size: 12px;
+    }
+  
+    .header_list {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+    }
+  }
