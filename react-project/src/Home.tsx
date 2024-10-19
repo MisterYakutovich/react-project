@@ -1,42 +1,54 @@
+import { useEffect, useState } from 'react';
 import './Home.css';
+import Form from './components/Form/Form';
+import Sidebar from './components/sidebar/Sidebar';
+import { getDownloadURL, getStorage, listAll, ref } from 'firebase/storage';
+import { Link } from 'react-router-dom';
 
 function Home() {
+  const [fileURLs, setFileURLs] = useState<string[]>([]);
+  useEffect(() => {
+    const fetchFiles = async () => {
+      const storage = getStorage();
+      const listRef = ref(storage, 'uploads/');
+
+      try {
+        const res = await listAll(listRef);
+        const urls = await Promise.all(
+          res.items.map(async (itemRef) => {
+            const url = await getDownloadURL(itemRef);
+            return url;
+          })
+        );
+
+        setFileURLs(urls);
+      } catch (error) {
+        console.error('Error fetching files: ', error);
+      }
+    };
+
+    fetchFiles();
+  }, []);
+  console.log(fileURLs[0]);
   return (
     <div className="container">
-      <div className="sidebar">
-        <h3>Sidebar</h3>
-        <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-        </ul>
-      </div>
+      <Sidebar />
       <div className="main-content">
-        <h2>CRUD Example</h2>
-        <div id="form-container" className="form-container">
-          <form id="item-form">
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input type="text" id="name" name="name" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description:</label>
-              <textarea id="description" name="description"></textarea>
-            </div>
-            <button type="submit">Save</button>
-          </form>
-        </div>
+        <Form />
         <table id="item-table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Actions</th>
+              <th>name</th>
+
+              <th>Link</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          {fileURLs.map((item) => (
+            <Link to={item}>
+              <tbody>{item}</tbody>
+            </Link>
+          ))}
         </table>
-        <button id="add-item-button">Add Item</button>
       </div>
     </div>
   );
