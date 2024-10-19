@@ -1,29 +1,19 @@
-import { ReactNode } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Welcome from "./Welcome";
-import Home from "./Home";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Welcome from './Welcome';
+import Home from './Home';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 
-
-function App(): ReactNode {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Welcome />,
-    },
-    {
-      path: '/home',
-      element: <Home />,
-    },
-  ])
-    
+function App() {
   return (
-    <>
-     <Header />
-      <RouterProvider router={router} />
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 export default App;
