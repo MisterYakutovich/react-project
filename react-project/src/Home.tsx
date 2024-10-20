@@ -59,14 +59,14 @@ function Home() {
           <div className={styles.content_wrapper_name}>
             <h2>Name</h2>
             {uploadedMetadata.map((item) => (
-              <h3 className="">{item.name}</h3>
+              <h3 key={item.name} className="">{item.name}</h3>
             ))}
           </div>
           <div className={styles.content_wrapper_link}>
             <h2>Link</h2>
             {uploadedMetadata.map((item) => (
               <Link target="_blank" to={item.url}>
-                <h3>Link</h3>
+                <h3 key={item.url}>Link</h3>
               </Link>
             ))}
           </div>

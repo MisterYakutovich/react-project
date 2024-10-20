@@ -80,6 +80,7 @@ function Form() {
           <label htmlFor="name">Name:</label>
           <input
             type="text"
+            placeholder='custom file name'
             id="name"
             name="name"
             required
