@@ -3,3 +3,15 @@
   background-color: #f0eedd8a;
   padding: 20px;
 }
+.button_remove {
+  width: 40px;
+  height: 20px;
+}
+.list_item {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+.details {
+  text-align: center;
+}

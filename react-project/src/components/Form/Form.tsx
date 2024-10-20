@@ -7,6 +7,8 @@ function Form() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [, setUploadedName] = useState('');
+  const [, setUploadedDescription] = useState('');
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -21,11 +23,15 @@ function Form() {
     if (!file) return;
 
     const storageRef = ref(storage, `uploads/${file.name}`);
+
     try {
       await uploadBytes(storageRef, file);
       console.log('File uploaded successfully!');
+
+      return true;
     } catch (error) {
       console.error('Error uploading file: ', error);
+      return false;
     }
   };
 
@@ -33,7 +39,13 @@ function Form() {
     event.preventDefault();
     if (selectedFile) {
       await handleFileUpload(selectedFile);
-      await updateFileMetadata();
+      const updatedMetadata = await updateFileMetadata();
+      if (updatedMetadata) {
+        setUploadedName(updatedMetadata.customMetadata?.name || '');
+        setUploadedDescription(
+          updatedMetadata.customMetadata?.description || ''
+        );
+      }
       setSelectedFile(null);
       setName('');
       setDescription('');
@@ -52,7 +64,6 @@ function Form() {
     };
     try {
       const updatedMetadata = await updateMetadata(fileRef, newMetadata);
-
       console.log('Updated metadata: ', updatedMetadata);
       alert('Успешно');
       return updatedMetadata;

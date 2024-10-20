@@ -3,23 +3,21 @@
   margin-top: 100px;
 }
 
-.main-content {
+.main_content {
   flex: 1;
   padding: 20px;
 }
 
-table {
+.table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th,
-td {
+.content_wrapper {
+  display: flex;
+  justify-content: space-around;
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-}
-
-th {
   background-color: #f0f0f0;
 }

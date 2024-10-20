@@ -23,14 +23,14 @@ function Header() {
     >
       <div className={styles.wrapper}>
         <div className={styles.header_nav_welcome}>
-          <ul>
-            <img src={todo} alt="ToDo" width={40} height={40} />
-          </ul>
+          <NavLink to="/">
+            <ul>
+              <img src={todo} alt="ToDo" width={40} height={40} />
+            </ul>
+          </NavLink>
         </div>
         <div className={styles.wrapper_button}>
           <NavLink to="/home">
-            {' '}
-            {/* Используем NavLink для ссылки */}
             <button className={styles.button}>MAIN</button>
           </NavLink>
         </div>
