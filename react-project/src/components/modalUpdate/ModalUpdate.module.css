@@ -1,0 +1,10 @@
+.update {
+  background-color: green;
+  border-radius: 5px;
+  margin-top: 5px;
+  height: 30px;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}

@@ -59,7 +59,9 @@ function Home() {
           <div className={styles.content_wrapper_name}>
             <h2>Name</h2>
             {uploadedMetadata.map((item) => (
-              <h3 key={item.name} className="">{item.name}</h3>
+              <h3 key={item.name} className="">
+                {item.name}
+              </h3>
             ))}
           </div>
           <div className={styles.content_wrapper_link}>

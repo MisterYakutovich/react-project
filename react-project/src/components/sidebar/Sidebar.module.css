@@ -15,3 +15,6 @@
 .details {
   text-align: center;
 }
+.item_img {
+  display: flex;
+}
