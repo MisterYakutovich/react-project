@@ -15,8 +15,9 @@
 
 .wrapper {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: space-between;
+  /*grid-template-columns: repeat(2, 1fr);*/
   align-items: center;
   text-transform: uppercase;
 }
@@ -70,7 +71,7 @@
   background-color: #499a18;
 }
 .wrapper_button {
-  margin-left: 500px;
+  margin-left: 0px;
 }
 .lang_switcher {
   text-align: center;
@@ -100,14 +101,18 @@
     height: 30px;
     border-radius: 8px;
     font-size: 12px;
-    margin-right: 0px;
+    
   }
 
   .header {
     padding: 0 20px;
   }
 }
-
+@media screen and (max-width: 768px) {
+  .button {
+   margin-left: -200px;
+  }
+}
 @media screen and (max-width: 500px) {
   .wrapper {
     padding: 0 10px;

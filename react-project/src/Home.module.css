@@ -21,3 +21,17 @@
   border-bottom: 1px solid #ddd;
   background-color: #f0f0f0;
 }
+@media (max-width: 768px) {
+.item_name{
+font-size: 15px;
+}
+.title_name{
+font-size: 17px;
+}
+.title_link{
+  font-size: 17px;
+}
+.item_link{
+  font-size: 15px;
+}
+}

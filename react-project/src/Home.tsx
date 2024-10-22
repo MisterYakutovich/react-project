@@ -57,18 +57,18 @@ function Home() {
         <Form />
         <div id="item-table" className={styles.content_wrapper}>
           <div className={styles.content_wrapper_name}>
-            <h2>Name</h2>
+            <h2 className={styles.title_name}>Name</h2>
             {uploadedMetadata.map((item) => (
-              <h3 key={item.name} className="">
+              <h3 key={item.name} className={styles.item_name}>
                 {item.name}
               </h3>
             ))}
           </div>
           <div className={styles.content_wrapper_link}>
-            <h2>Link</h2>
+            <h2 className={styles.title_link}>Link</h2>
             {uploadedMetadata.map((item) => (
               <Link target="_blank" to={item.url}>
-                <h3 key={item.url}>Link</h3>
+                <h3 className={styles.item_link} key={item.url}>Link</h3>
               </Link>
             ))}
           </div>
