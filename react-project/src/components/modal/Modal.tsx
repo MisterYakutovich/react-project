@@ -1,4 +1,4 @@
-import styles from './Modal.module.css';
+import styles from './Modal.module.scss';
 interface ModalProps {
   remainingTime: number;
 }

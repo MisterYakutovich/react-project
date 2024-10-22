@@ -1,6 +1,8 @@
+$background-color_1: #f0eedd8a;
+
 .sidebar {
   width: 300px;
-  background-color: #f0eedd8a;
+  background-color: $background-color_1;
   padding: 20px;
 }
 .button_remove {

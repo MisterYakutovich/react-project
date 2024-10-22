@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './ModalUpdate.module.css';
+import styles from './ModalUpdate.module.scss';
 import { getStorage, ref, updateMetadata } from 'firebase/storage';
 import { setAllMetadata } from '../../redux/slices/sliceMetaData';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,7 +34,7 @@ function ModalUpdate({ item, onClose }: ModalUpdateProps) {
           : metadata
       );
       dispatch(setAllMetadata(updatedMetadata));
-     
+
       setNewName('');
       onClose();
     } catch (error) {

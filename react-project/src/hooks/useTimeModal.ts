@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export function useTimeModal() {
   const [showModal, setShowModal] = useState(false);
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const [, setTimer] = useState<NodeJS.Timeout | null>(null);
   const [remainingTime, setRemainingTime] = useState(3);
   const closeModal = () => {
     setShowModal(false);

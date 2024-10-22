@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './Header.module.css';
+import styles from './Header.module.scss';
 import todo from '../../assets/todo.png';
 import { NavLink } from 'react-router-dom';
 

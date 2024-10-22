@@ -1,5 +1,7 @@
+$background-color_1: green;
+
 .update {
-  background-color: green;
+  background-color: $background-color_1;
   border-radius: 5px;
   margin-top: 5px;
   height: 30px;

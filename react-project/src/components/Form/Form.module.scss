@@ -1,13 +1,19 @@
+$color_1: white;
+$background-color_1: #4caf50;
+
 .form_group {
   margin-bottom: 10px;
 }
-
 label {
   display: block;
   margin-bottom: 5px;
 }
-
-input[type='text'],
+input[type='text'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
 textarea {
   width: 100%;
   padding: 10px;
@@ -16,10 +22,8 @@ textarea {
 }
 .add_button {
   padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
+  background-color: $background-color_1;
+  color: $color_1;
   border: none;
   cursor: pointer;
-}
-.form_container {
 }

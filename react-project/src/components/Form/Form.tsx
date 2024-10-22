@@ -1,14 +1,12 @@
 import { ChangeEvent, useState } from 'react';
-import styles from './Form.module.css';
+import styles from './Form.module.scss';
 import { getStorage, ref, updateMetadata, uploadBytes } from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
 
 function Form() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
   const [, setUploadedName] = useState('');
-  const [, setUploadedDescription] = useState('');
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -42,13 +40,9 @@ function Form() {
       const updatedMetadata = await updateFileMetadata();
       if (updatedMetadata) {
         setUploadedName(updatedMetadata.customMetadata?.name || '');
-        setUploadedDescription(
-          updatedMetadata.customMetadata?.description || ''
-        );
       }
       setSelectedFile(null);
       setName('');
-      setDescription('');
     }
   };
 
@@ -58,14 +52,13 @@ function Form() {
     const fileRef = ref(storage, filePath);
     const newMetadata = {
       customMetadata: {
-        description: description,
         name: name,
       },
     };
     try {
       const updatedMetadata = await updateMetadata(fileRef, newMetadata);
-      console.log('Updated metadata: ', updatedMetadata);
-      alert('Успешно');
+
+      alert('Успешно сохранено в базу данных');
       return updatedMetadata;
     } catch (error) {
       console.error('Error updating metadata: ', error);
@@ -80,7 +73,7 @@ function Form() {
           <label htmlFor="name">Name:</label>
           <input
             type="text"
-            placeholder="custom file name"
+            placeholder="Сustom file name"
             id="name"
             name="name"
             required
@@ -88,15 +81,7 @@ function Form() {
             value={name}
           />
         </div>
-        <div className={styles.form_group}>
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          ></textarea>
-        </div>
+
         <div className={styles.form_group}>
           <label htmlFor="file">File:</label>
           <input

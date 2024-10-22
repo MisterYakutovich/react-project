@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Metadata {
   name: string;
-  description: string;
+  // description: string;
   url: string;
   fullName: string;
 }

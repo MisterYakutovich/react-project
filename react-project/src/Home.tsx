@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import styles from './Home.module.css';
+import styles from './Home.module.scss';
 import Form from './components/Form/Form';
 import Sidebar from './components/sidebar/Sidebar';
 import {
@@ -18,7 +18,7 @@ function Home() {
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata
   );
-  console.log(uploadedMetadata);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchFiles = async () => {
@@ -40,7 +40,7 @@ function Home() {
         });
 
         const allMetadata = await Promise.all(metadataPromises);
-
+        console.log(allMetadata);
         dispatch(setAllMetadata(allMetadata));
       } catch (error) {
         console.error('Error fetching files: ', error);
@@ -68,7 +68,9 @@ function Home() {
             <h2 className={styles.title_link}>Link</h2>
             {uploadedMetadata.map((item) => (
               <Link target="_blank" to={item.url}>
-                <h3 className={styles.item_link} key={item.url}>Link</h3>
+                <h3 className={styles.item_link} key={item.url}>
+                  Link
+                </h3>
               </Link>
             ))}
           </div>

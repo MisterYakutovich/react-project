@@ -1,14 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './Sidebar.module.css';
+import styles from './Sidebar.module.scss';
 import { RootState } from '../../redux/store';
 import remove from '../../assets/remove.png';
 import update from '../../assets/update.png';
-import {
-  getStorage,
-  ref,
-  deleteObject,
-  updateMetadata,
-} from 'firebase/storage';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 import { setAllMetadata } from '../../redux/slices/sliceMetaData';
 import Modal from '../modal/Modal';
 import { useTimeModal } from '../../hooks/useTimeModal';

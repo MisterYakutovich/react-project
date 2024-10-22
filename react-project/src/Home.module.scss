@@ -1,37 +1,36 @@
+$background-color_1: #f0f0f0;
+
 .container {
   display: flex;
   margin-top: 100px;
 }
-
 .main_content {
   flex: 1;
   padding: 20px;
 }
-
 .table {
   width: 100%;
   border-collapse: collapse;
 }
-
 .content_wrapper {
   display: flex;
   justify-content: space-around;
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-  background-color: #f0f0f0;
+  background-color: $background-color_1;
 }
 @media (max-width: 768px) {
-.item_name{
-font-size: 15px;
-}
-.title_name{
-font-size: 17px;
-}
-.title_link{
-  font-size: 17px;
-}
-.item_link{
-  font-size: 15px;
-}
+  .item_name {
+    font-size: 15px;
+  }
+  .title_name {
+    font-size: 17px;
+  }
+  .title_link {
+    font-size: 17px;
+  }
+  .item_link {
+    font-size: 15px;
+  }
 }
