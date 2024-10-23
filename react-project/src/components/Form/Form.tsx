@@ -1,9 +1,18 @@
 import { ChangeEvent, useState } from 'react';
 import styles from './Form.module.scss';
-import { getStorage, ref, updateMetadata, uploadBytes } from 'firebase/storage';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  updateMetadata,
+  uploadBytes,
+} from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
+import { useDispatch } from 'react-redux';
+import { setUploadedMetadata } from '../../redux/slices/sliceMetaData';
 
 function Form() {
+  const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, setName] = useState('');
   const [, setUploadedName] = useState('');
@@ -19,17 +28,16 @@ function Form() {
 
   const handleFileUpload = async (file: File) => {
     if (!file) return;
-
     const storageRef = ref(storage, `uploads/${file.name}`);
 
     try {
       await uploadBytes(storageRef, file);
       console.log('File uploaded successfully!');
-
-      return true;
+      return storageRef;
     } catch (error) {
       console.error('Error uploading file: ', error);
-      return false;
+
+      return null;
     }
   };
 
@@ -37,7 +45,9 @@ function Form() {
     event.preventDefault();
     if (selectedFile) {
       await handleFileUpload(selectedFile);
+
       const updatedMetadata = await updateFileMetadata();
+
       if (updatedMetadata) {
         setUploadedName(updatedMetadata.customMetadata?.name || '');
       }
@@ -57,7 +67,13 @@ function Form() {
     };
     try {
       const updatedMetadata = await updateMetadata(fileRef, newMetadata);
-
+      const url = await getDownloadURL(fileRef);
+      const fileData = {
+        name: updatedMetadata.customMetadata?.name || '',
+        fullName: selectedFile?.name || '',
+        url,
+      };
+      dispatch(setUploadedMetadata(fileData));
       alert('Успешно сохранено в базу данных');
       return updatedMetadata;
     } catch (error) {

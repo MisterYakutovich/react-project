@@ -4,6 +4,7 @@ $background-color_1: #f0eedd8a;
   width: 300px;
   background-color: $background-color_1;
   padding: 20px;
+  overflow-y: auto;
 }
 .button_remove {
   width: 40px;

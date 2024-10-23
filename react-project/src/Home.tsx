@@ -18,7 +18,7 @@ function Home() {
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata
   );
-
+  console.log(uploadedMetadata);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchFiles = async () => {
@@ -40,7 +40,7 @@ function Home() {
         });
 
         const allMetadata = await Promise.all(metadataPromises);
-        console.log(allMetadata);
+
         dispatch(setAllMetadata(allMetadata));
       } catch (error) {
         console.error('Error fetching files: ', error);
