@@ -1,0 +1,33 @@
+$background-color_1: #f0f0f0;
+
+.footer {
+  padding: 20px;
+  background-color: $background-color_1;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 50px;
+  border-width: medium;
+}
+.github {
+  text-transform: uppercase;
+  font-size: 15px;
+}
+.logo {
+  width: 70px;
+}
+.year {
+  text-align: center;
+}
+.logo_wrapper {
+  display: flex;
+  justify-content: end;
+}
+.developers {
+  padding-top: 5px;
+  font-size: 10px;
+  display: flex;
+  gap: 5px;
+}

@@ -1,0 +1,24 @@
+$background-color_1: #f0eedd8a;
+
+.sidebar {
+  width: 300px;
+  background-color: $background-color_1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.button_remove {
+  width: 40px;
+  height: 20px;
+}
+.list_item {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 0;
+}
+.details {
+  text-align: center;
+}
+.item_img {
+  display: flex;
+}
