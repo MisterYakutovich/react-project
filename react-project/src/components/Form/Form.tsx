@@ -1,12 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import styles from './Form.module.scss';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  updateMetadata,
-  uploadBytes,
-} from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
 import { useDispatch } from 'react-redux';
 import { setUploadedMetadata } from '../../redux/slices/sliceMetaData';
@@ -15,7 +9,6 @@ function Form() {
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, setName] = useState('');
-  const [, setUploadedName] = useState('');
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -27,12 +20,18 @@ function Form() {
   };
 
   const handleFileUpload = async (file: File) => {
+    //selectedFile
     if (!file) return;
     const storageRef = ref(storage, `uploads/${file.name}`);
 
     try {
-      await uploadBytes(storageRef, file);
+      const snapshot = await uploadBytes(storageRef, file, {
+        customMetadata: {
+          name: name,
+        },
+      });
       console.log('File uploaded successfully!');
+      setName(snapshot.metadata.customMetadata?.name || '');
       return storageRef;
     } catch (error) {
       console.error('Error uploading file: ', error);
@@ -44,41 +43,28 @@ function Form() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (selectedFile) {
-      await handleFileUpload(selectedFile);
-
-      const updatedMetadata = await updateFileMetadata();
-
-      if (updatedMetadata) {
-        setUploadedName(updatedMetadata.customMetadata?.name || '');
+      const storage = await handleFileUpload(selectedFile);
+      if (storage) {
+        // const [url, updatedMetadata] = await Promise.all([
+        //  getDownloadURL(storage),
+        //  updateMetadata(storage, {
+        //   customMetadata: {
+        //    name: name,
+        //   },
+        //  }),
+        //  ]);
+        const url = await getDownloadURL(storage);
+        const fileData = {
+          name: name,
+          fullName: selectedFile?.name || '',
+          url,
+        };
+        dispatch(setUploadedMetadata(fileData));
+        alert('Успешно сохранено в базу данных');
       }
       setSelectedFile(null);
-      setName('');
-    }
-  };
 
-  const updateFileMetadata = async () => {
-    const filePath = 'uploads/' + selectedFile?.name;
-    const storage = getStorage();
-    const fileRef = ref(storage, filePath);
-    const newMetadata = {
-      customMetadata: {
-        name: name,
-      },
-    };
-    try {
-      const updatedMetadata = await updateMetadata(fileRef, newMetadata);
-      const url = await getDownloadURL(fileRef);
-      const fileData = {
-        name: updatedMetadata.customMetadata?.name || '',
-        fullName: selectedFile?.name || '',
-        url,
-      };
-      dispatch(setUploadedMetadata(fileData));
-      alert('Успешно сохранено в базу данных');
-      return updatedMetadata;
-    } catch (error) {
-      console.error('Error updating metadata: ', error);
-      return null;
+      setName('');
     }
   };
 

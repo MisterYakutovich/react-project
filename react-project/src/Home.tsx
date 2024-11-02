@@ -18,7 +18,7 @@ function Home() {
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata
   );
-  console.log(uploadedMetadata);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchFiles = async () => {
@@ -67,11 +67,11 @@ function Home() {
           <div className={styles.content_wrapper_link}>
             <h2 className={styles.title_link}>Link</h2>
             {uploadedMetadata.map((item) => (
-              <Link target="_blank" to={item.url}>
+              <a target="_blank" href={item.url}>
                 <h3 className={styles.item_link} key={item.url}>
                   Link
                 </h3>
-              </Link>
+              </a>
             ))}
           </div>
         </div>
