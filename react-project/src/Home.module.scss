@@ -15,12 +15,25 @@ $background-color_1: #f0f0f0;
   border-collapse: collapse;
 }
 .content_wrapper {
-  display: flex;
-  justify-content: space-around;
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
   background-color: $background-color_1;
+}
+.content_wrapper_name {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+.wrapper_title {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.item_name {
+  width: 60%;
+  word-break: break-all;
 }
 @media (max-width: 768px) {
   .item_name {

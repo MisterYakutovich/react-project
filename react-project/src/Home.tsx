@@ -9,7 +9,7 @@ import {
   listAll,
   ref,
 } from 'firebase/storage';
-import { Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { setAllMetadata } from './redux/slices/sliceMetaData';
@@ -56,24 +56,22 @@ function Home() {
       <div className={styles.main_content}>
         <Form />
         <div id="item-table" className={styles.content_wrapper}>
-          <div className={styles.content_wrapper_name}>
+          <div className={styles.wrapper_title}>
             <h2 className={styles.title_name}>Name</h2>
-            {uploadedMetadata.map((item) => (
+            <h2 className={styles.title_link}>Link</h2>
+          </div>
+          {uploadedMetadata.map((item) => (
+            <div className={styles.content_wrapper_name}>
               <h3 key={item.name} className={styles.item_name}>
                 {item.name}
               </h3>
-            ))}
-          </div>
-          <div className={styles.content_wrapper_link}>
-            <h2 className={styles.title_link}>Link</h2>
-            {uploadedMetadata.map((item) => (
               <a target="_blank" href={item.url}>
                 <h3 className={styles.item_link} key={item.url}>
                   Link
                 </h3>
               </a>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
