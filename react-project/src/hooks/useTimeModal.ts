@@ -10,9 +10,9 @@ export function useTimeModal() {
   };
   useEffect(() => {
     if (showModal) {
-      const timerId = setTimeout(() => {
+     const timerId = setTimeout(() => {
         closeModal();
-      }, remainingTime * 1000);
+     }, remainingTime * 1000);
       const intervalId = setInterval(() => {
         setRemainingTime((prevTime) => {
           if (prevTime <= 1) {

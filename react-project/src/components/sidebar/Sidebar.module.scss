@@ -12,10 +12,9 @@ $background-color_1: #f0eedd8a;
 }
 .item_name {
   word-break: break-all;
+  width: 40%;
 }
 .list_item {
-  display: flex;
-  justify-content: space-between;
   list-style-type: none;
   padding: 0;
 }
@@ -24,4 +23,5 @@ $background-color_1: #f0eedd8a;
 }
 .item_img {
   display: flex;
+  justify-content: space-around;
 }

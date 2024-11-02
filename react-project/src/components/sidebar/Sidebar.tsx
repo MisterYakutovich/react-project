@@ -51,10 +51,9 @@ function Sidebar() {
 
       {uploadedMetadata.map((item) => (
         <ul className={styles.list_item}>
-          <li key={item.name} className={styles.item_name}>
-            {item.name}
-          </li>
+          
           <li className={styles.item_img}>
+            <p key={item.name} className={styles.item_name}>{item.name}</p>
             <img
               src={remove}
               alt="ReMove"
@@ -63,7 +62,7 @@ function Sidebar() {
               style={{ cursor: 'pointer' }}
               onClick={() => handleDeleteFile(item)}
             />
-
+            
             <img
               src={update}
               alt="update"

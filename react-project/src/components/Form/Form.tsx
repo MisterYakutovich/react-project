@@ -45,14 +45,6 @@ function Form() {
     if (selectedFile) {
       const storage = await handleFileUpload(selectedFile);
       if (storage) {
-        // const [url, updatedMetadata] = await Promise.all([
-        //  getDownloadURL(storage),
-        //  updateMetadata(storage, {
-        //   customMetadata: {
-        //    name: name,
-        //   },
-        //  }),
-        //  ]);
         const url = await getDownloadURL(storage);
         const fileData = {
           name: name,
