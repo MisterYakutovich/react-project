@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export function useTimeModal() {
   const [showModal, setShowModal] = useState(false);
-  const [, setTimer] = useState<NodeJS.Timeout | null>(null);
+
   const [remainingTime, setRemainingTime] = useState(3);
   const closeModal = () => {
     setShowModal(false);
@@ -10,25 +10,21 @@ export function useTimeModal() {
   };
   useEffect(() => {
     if (showModal) {
-     const timerId = setTimeout(() => {
-        closeModal();
-     }, remainingTime * 1000);
-      const intervalId = setInterval(() => {
-        setRemainingTime((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(intervalId);
-          }
-          return prevTime - 1;
-        });
+      let intervalId = setInterval(() => {
+        setRemainingTime((prevSeconds) => prevSeconds - 1);
       }, 1000);
-
-      setTimer(timerId);
-
       return () => {
-        clearTimeout(timerId);
-        clearInterval(intervalId);
+        if (intervalId) {
+          clearInterval(intervalId);
+        }
       };
     }
-  }, [showModal]);
+  });
+  useEffect(() => {
+    if (remainingTime === 0) {
+      closeModal();
+    }
+  }, [remainingTime]);
+
   return { showModal, setShowModal, remainingTime };
 }

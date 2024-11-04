@@ -6,12 +6,11 @@ export const pokemonApi = createApi({
   reducerPath: 'fileApi',
   baseQuery: fetchBaseQuery({ baseUrl: '' }),
   endpoints: (builder) => ({
-    getFile:builder.query({
-        query:(filePath)=>{
-            const fileRef=ref(storage, filePath);
-            return getDownloadURL(fileRef)
-            .then((url) => ({ url })); 
-        }
-    })
+    getFile: builder.query({
+      query: (filePath) => {
+        const fileRef = ref(storage, filePath);
+        return getDownloadURL(fileRef).then((url) => ({ url }));
+      },
+    }),
   }),
 });
