@@ -13,8 +13,7 @@ $background-color_3: rgb(245, 245, 187);
   flex-direction: column;
   align-items: center;
   gap: 50px;
-  padding: 40px;
-  margin-bottom: 40px;
+  padding: 110px 20px;
   line-height: 1.5;
 }
 .title {
@@ -37,7 +36,7 @@ $background-color_3: rgb(245, 245, 187);
   box-sizing: border-box;
   padding: 15px;
   gap: 15px;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 .course_description_container {
   display: flex;
@@ -81,7 +80,6 @@ $background-color_3: rgb(245, 245, 187);
 }
 .about {
   position: relative;
-  height: 400px;
   left: 0px;
   top: 0px;
   background-color: $background-color_2;
@@ -91,7 +89,6 @@ $background-color_3: rgb(245, 245, 187);
 }
 .about_section_title {
   position: relative;
-  top: 50px;
   width: 80%;
   margin: 0 auto;
   text-align: center;
@@ -116,7 +113,7 @@ $background-color_3: rgb(245, 245, 187);
 }
 @media (max-width: 1440px) {
   .main_container {
-    padding: 40px;
+    padding: 110px 20px;
   }
   .project_description_container {
     width: 70%;
@@ -143,10 +140,12 @@ $background-color_3: rgb(245, 245, 187);
     font-size: 22px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .main_container {
-    padding: 20px;
+    padding: 80px 20px 60px 20px;
   }
+}
+@media (max-width: 768px) {
   .project_description_container {
     width: 90%;
   }

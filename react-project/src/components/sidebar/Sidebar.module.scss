@@ -24,4 +24,15 @@ $background-color_1: #f0eedd8a;
 .item_img {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .update_img {
+    width: 20px;
+    height: 20px;
+  }
+  .delete_img {
+    width: 20px;
+    height: 20px;
+  }
 }

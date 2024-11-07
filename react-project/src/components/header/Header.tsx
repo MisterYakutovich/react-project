@@ -24,7 +24,7 @@ function Header() {
       <div className={styles.wrapper}>
         <div className={styles.header_nav_welcome}>
           <NavLink to="/">
-            <ul>
+            <ul className={styles.todo_logo}>
               <img src={todo} alt="ToDo" width={40} height={40} />
             </ul>
           </NavLink>

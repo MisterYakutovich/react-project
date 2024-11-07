@@ -8,7 +8,7 @@ function Welcome() {
         <span className={styles.highlighted_text}>About this app</span>
         <p className={styles.project_description}>
           In this project you can upload files in the format:
-          image/*,.pdf,.doc,.docx,.xml,application/msword into the
+          image/*,.pdf,.doc,.docx,.xml,application / msword into the
           firebase/storage database. The files can be delete and also change the
           file name. You can view files in a separate browser tab.
         </p>
