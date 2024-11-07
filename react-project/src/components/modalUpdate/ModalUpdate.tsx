@@ -5,6 +5,7 @@ import { setAllMetadata } from '../../redux/slices/sliceMetaData';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import close from '../../assets/close.png';
+import { useUpdateFileMutation } from '../../redux/services/api';
 
 interface ModalUpdateProps {
   item: { fullName: string };
@@ -16,6 +17,7 @@ function ModalUpdate({ item, onClose }: ModalUpdateProps) {
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata
   );
+  const [updateFile] = useUpdateFileMutation();
   const updateFileMetadata = async (item: { fullName: string }) => {
     const storage = getStorage();
     const fileRef = ref(storage, `uploads/${item.fullName}`);
@@ -26,11 +28,15 @@ function ModalUpdate({ item, onClose }: ModalUpdateProps) {
     };
 
     try {
+      const result = await updateFile({
+        fullName: item.fullName,
+        newName,
+      }).unwrap();
       await updateMetadata(fileRef, newMetadata);
 
       const updatedMetadata = uploadedMetadata.map((metadata) =>
         metadata.fullName === item.fullName
-          ? { ...metadata, name: newName }
+          ? { ...metadata, name: result?.fullName || '' }
           : metadata
       );
       dispatch(setAllMetadata(updatedMetadata));

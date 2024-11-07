@@ -5,6 +5,8 @@ import {
   uploadBytes,
   getMetadata,
   listAll,
+  deleteObject,
+  updateMetadata,
 } from 'firebase/storage';
 import { storage } from '../../firebase/firebase';
 
@@ -55,7 +57,44 @@ export const fileApi = createApi({
         }
       },
     }),
+    deleteFile: builder.mutation({
+      async queryFn(item: { fullName: string } | null) {
+        if (!item) return { error: 'No item provided' };
+        const fileRef = ref(storage, `uploads/${item?.fullName}`);
+        try {
+          await deleteObject(fileRef);
+
+          return { data: { fullName: item?.fullName } };
+        } catch (error) {
+          return { error: error };
+        }
+      },
+    }),
+    updateFile: builder.mutation({
+      async queryFn(item: { fullName: string; newName: string } | null) {
+        if (!item) return { error: 'No item provided' };
+        const { fullName, newName } = item;
+        const fileRef = ref(storage, `uploads/${fullName}`);
+        const newMetadata = {
+          customMetadata: {
+            name: newName,
+          },
+        };
+        try {
+          await updateMetadata(fileRef, newMetadata);
+
+          return { data: { fullName: newName } };
+        } catch (error) {
+          return { error: error };
+        }
+      },
+    }),
   }),
 });
 
-export const { useFetchFileQuery, useAddFileMutation } = fileApi;
+export const {
+  useFetchFileQuery,
+  useAddFileMutation,
+  useDeleteFileMutation,
+  useUpdateFileMutation,
+} = fileApi;

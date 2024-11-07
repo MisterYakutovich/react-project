@@ -3,12 +3,12 @@ import styles from './Sidebar.module.scss';
 import { RootState } from '../../redux/store';
 import remove from '../../assets/remove.png';
 import update from '../../assets/update.png';
-import { getStorage, ref, deleteObject } from 'firebase/storage';
 import { setAllMetadata } from '../../redux/slices/sliceMetaData';
 import Modal from '../modal/Modal';
 import { useTimeModal } from '../../hooks/useTimeModal';
 import { useState } from 'react';
 import ModalUpdate from '../modalUpdate/ModalUpdate';
+import { useDeleteFileMutation } from '../../redux/services/api';
 
 function Sidebar() {
   const [showModalUpdate, setShowModalUpdate] = useState(false);
@@ -16,19 +16,18 @@ function Sidebar() {
     null
   );
   const { showModal, setShowModal, remainingTime } = useTimeModal();
+  const [deleteFile] = useDeleteFileMutation();
+
   const dispatch = useDispatch();
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata
   );
 
   const setFileToDelete = async (item: { fullName: string } | null) => {
-    const storage = getStorage();
-    const fileRef = ref(storage, `uploads/${item?.fullName}`);
     try {
-      await deleteObject(fileRef);
-
+      const result = await deleteFile(item).unwrap();
       const updatedMetadata = uploadedMetadata.filter(
-        (metadata) => metadata.fullName !== item?.fullName
+        (metadata) => metadata.fullName !== result?.fullName
       );
       dispatch(setAllMetadata(updatedMetadata));
     } catch (error) {
