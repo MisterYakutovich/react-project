@@ -17,7 +17,7 @@ function Welcome() {
       <section className={styles.about}>
         <div className={styles.about_section_title}>
           <p className={styles.about_title}>
-            This project was developed by
+            This project was developed by&nbsp;
             <span>
               an aspiring web developer diving into the world of React
             </span>
