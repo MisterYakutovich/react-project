@@ -2,53 +2,26 @@ import { useEffect } from 'react';
 import styles from './Home.module.scss';
 import Form from './components/Form/Form';
 import Sidebar from './components/sidebar/Sidebar';
-import {
-  getDownloadURL,
-  getMetadata,
-  getStorage,
-  listAll,
-  ref,
-} from 'firebase/storage';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { setAllMetadata } from './redux/slices/sliceMetaData';
+import { useFetchFileQuery } from './redux/services/api';
 
 function Home() {
+  const dispatch = useDispatch();
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata
   );
 
-  const dispatch = useDispatch();
+  const { data: files, isLoading, error } = useFetchFileQuery(undefined);
+
   useEffect(() => {
-    const fetchFiles = async () => {
-      const storage = getStorage();
-      const listRef = ref(storage, 'uploads/');
-
-      try {
-        const res = await listAll(listRef);
-        const metadataPromises = res.items.map(async (itemRef) => {
-          const url = await getDownloadURL(itemRef);
-          const metadata = await getMetadata(itemRef);
-
-          return {
-            name: metadata.customMetadata?.name || '',
-            fullName: metadata?.name || '',
-            description: metadata.customMetadata?.description || '',
-            url,
-          };
-        });
-
-        const allMetadata = await Promise.all(metadataPromises);
-
-        dispatch(setAllMetadata(allMetadata));
-      } catch (error) {
-        console.error('Error fetching files: ', error);
-      }
-    };
-
-    fetchFiles();
-  }, []);
+    if (files) {
+      dispatch(setAllMetadata(files));
+      console.log(files);
+    }
+  }, [files]);
 
   return (
     <div className={styles.container}>

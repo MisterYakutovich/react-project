@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Metadata {
+export interface Metadata {
   name: string;
   url: string;
   fullName: string;
@@ -20,6 +20,7 @@ const metadataSlice = createSlice({
   reducers: {
     setUploadedMetadata(state, action: PayloadAction<Metadata>) {
       state.uploadedMetadata.push(action.payload);
+      // state.uploadedMetadata=action.payload;
     },
     setAllMetadata(state, action: PayloadAction<Metadata[]>) {
       state.uploadedMetadata = action.payload;

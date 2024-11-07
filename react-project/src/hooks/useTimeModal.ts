@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 export function useTimeModal() {
   const [showModal, setShowModal] = useState(false);
-
   const [remainingTime, setRemainingTime] = useState(3);
   const closeModal = () => {
     setShowModal(false);

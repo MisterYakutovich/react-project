@@ -1,14 +1,15 @@
 import { ChangeEvent, useState } from 'react';
 import styles from './Form.module.scss';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../../firebase/firebase';
+
 import { useDispatch } from 'react-redux';
 import { setUploadedMetadata } from '../../redux/slices/sliceMetaData';
+import { useAddFileMutation } from '../../redux/services/api';
 
 function Form() {
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [name, setName] = useState('');
+  const [addFile] = useAddFileMutation();
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -19,44 +20,31 @@ function Form() {
     }
   };
 
-  const handleFileUpload = async (file: File) => {
-    //selectedFile
-    if (!file) return;
-    const storageRef = ref(storage, `uploads/${file.name}`);
-
-    try {
-      const snapshot = await uploadBytes(storageRef, file, {
-        customMetadata: {
-          name: name,
-        },
-      });
-      console.log('File uploaded successfully!');
-      setName(snapshot.metadata.customMetadata?.name || '');
-      return storageRef;
-    } catch (error) {
-      console.error('Error uploading file: ', error);
-
-      return null;
-    }
-  };
-
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     if (selectedFile) {
-      const storage = await handleFileUpload(selectedFile);
-      if (storage) {
-        const url = await getDownloadURL(storage);
-        const fileData = {
-          name: name,
-          fullName: selectedFile?.name || '',
-          url,
-        };
-        dispatch(setUploadedMetadata(fileData));
-        alert('Успешно сохранено в базу данных');
-      }
-      setSelectedFile(null);
+      try {
+        const snapshot = await addFile({
+          file: selectedFile,
+          name,
+          fullName: selectedFile?.name,
+        }).unwrap();
 
-      setName('');
+        if (snapshot) {
+          const fileData = {
+            name: name,
+            fullName: selectedFile?.name || '',
+            url: snapshot?.url,
+          };
+          dispatch(setUploadedMetadata(fileData));
+          alert('Успешно сохранено в базу данных');
+        }
+      } catch (error) {
+        console.error('Ошибка при загрузке файла:', error);
+      } finally {
+        setSelectedFile(null);
+        setName('');
+      }
     }
   };
 
