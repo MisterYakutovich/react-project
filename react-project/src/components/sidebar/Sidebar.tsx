@@ -6,7 +6,7 @@ import update from '../../assets/update.png';
 import { setAllMetadata } from '../../redux/slices/sliceMetaData';
 import Modal from '../modal/Modal';
 import { useTimeModal } from '../../hooks/useTimeModal';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import ModalUpdate from '../modalUpdate/ModalUpdate';
 import { useDeleteFileMutation } from '../../redux/services/api';
 
@@ -18,7 +18,6 @@ function Sidebar() {
 
   const { showModal, setShowModal, remainingTime } = useTimeModal();
   const [deleteFile] = useDeleteFileMutation();
-  const itemRefs = useRef<{ [key: string]: HTMLElement | null }>({});
   const dispatch = useDispatch();
   const uploadedMetadata = useSelector(
     (state: RootState) => state.metadata.uploadedMetadata

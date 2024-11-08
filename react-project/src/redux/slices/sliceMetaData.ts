@@ -20,7 +20,6 @@ const metadataSlice = createSlice({
   reducers: {
     setUploadedMetadata(state, action: PayloadAction<Metadata>) {
       state.uploadedMetadata.push(action.payload);
-      // state.uploadedMetadata=action.payload;
     },
     setAllMetadata(state, action: PayloadAction<Metadata[]>) {
       state.uploadedMetadata = action.payload;

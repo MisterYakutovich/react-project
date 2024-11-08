@@ -9,7 +9,7 @@ export function useTimeModal() {
   };
   useEffect(() => {
     if (showModal) {
-      let intervalId = setInterval(() => {
+      const intervalId = setInterval(() => {
         setRemainingTime((prevSeconds) => prevSeconds - 1);
       }, 1000);
       return () => {

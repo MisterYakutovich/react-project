@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/store';
 import { setAllMetadata } from './redux/slices/sliceMetaData';
 import { useFetchFileQuery } from './redux/services/api';
+import Loader from './components/loading/Loading';
 
 function Home() {
   const dispatch = useDispatch();
@@ -14,15 +15,17 @@ function Home() {
     (state: RootState) => state.metadata.uploadedMetadata
   );
 
-  const { data: files, isLoading, error } = useFetchFileQuery(undefined);
+  const { data: files, isLoading } = useFetchFileQuery(undefined);
 
   useEffect(() => {
     if (files) {
       dispatch(setAllMetadata(files));
       console.log(files);
     }
-  }, [files]);
-
+  }, [files, dispatch]);
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className={styles.container}>
       <Sidebar />

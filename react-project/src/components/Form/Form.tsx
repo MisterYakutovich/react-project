@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from 'react';
 import styles from './Form.module.scss';
-
 import { useDispatch } from 'react-redux';
 import { setUploadedMetadata } from '../../redux/slices/sliceMetaData';
 import { useAddFileMutation } from '../../redux/services/api';
