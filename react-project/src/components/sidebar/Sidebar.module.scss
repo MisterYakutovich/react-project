@@ -1,0 +1,38 @@
+$background-color_1: #f0eedd8a;
+
+.sidebar {
+  width: 30%;
+  background-color: $background-color_1;
+  padding: 20px;
+  overflow-y: auto;
+}
+.button_remove {
+  width: 40px;
+  height: 20px;
+}
+.item_name {
+  word-break: break-all;
+  width: 40%;
+}
+.list_item {
+  list-style-type: none;
+  padding: 0;
+}
+.details {
+  text-align: center;
+}
+.item_img {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .update_img {
+    width: 20px;
+    height: 20px;
+  }
+  .delete_img {
+    width: 20px;
+    height: 20px;
+  }
+}
